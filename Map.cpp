@@ -21,7 +21,7 @@ Map::~Map() {
 	for(auto entity : allEntities) {
 		CERR(entity.second->getId() << " " << int(entity.second->getType()) << " " << entity.second->getPosition()->row << " " << entity.second->getPosition()->col << "\n");
 		delete ((entity.second)->getCell());
-		delete entity.second;
+//		delete entity.second;
 	}
 //	for(int i = 0; i < size.height; i++) {
 //		for(int j = 0; j < size.width; j++) {
@@ -149,7 +149,7 @@ void Map::delEntity(int id) {
 		break;
 	}
 //    	table[x][y]->delEntity();
-	delete(entity);
+	delete(entity->getCell());
 	this->allEntities.erase(id);
 //    }
 }

@@ -17,8 +17,8 @@ Cell::Cell(int row, int col) : row(row), col(col) {
 }
 
 Cell::~Cell() {
-//	if(entity != nullptr)
-//		delete entity;
+	if(entity != nullptr)
+		delete entity;
 }
 
 void Cell::setEntity(Entity* entity) {
