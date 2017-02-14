@@ -42,7 +42,7 @@ class World
      * @param id Beetle id
      * @param s The command given to the roach of Move type
      */
-    virtual void deterministicMove(Beetle &roach, Move strategy) = 0;
+    virtual void deterministicMove(Beetle &beetle, Move strategy) = 0;
 
     /**
      * Changes antenna type of the given roach
@@ -50,7 +50,7 @@ class World
      * @param roach Roach type
      * @param c Antenna type
      */
-    virtual void changeType(Beetle &roach, bool wing) = 0;
+    virtual void changeType(Beetle &beetle, bool wing) = 0;
 
     /**
 	 * number of turns that passed as long as game started.

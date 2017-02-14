@@ -15,4 +15,14 @@ void AI::doTurn(World *world)
 				world->changeStrategy(false, static_cast<CellState>(i), static_cast<CellState>(j), static_cast<CellState>(k), static_cast<Move> (rand()%3));
 				world->changeStrategy(true, static_cast<CellState>(i), static_cast<CellState>(j), static_cast<CellState>(k), static_cast<Move> (rand()%3));
 			}
+
+	// for every beetle, change type or deterministicMove randomly
+	for(auto beetle : world->getMap()->getMyCells()) {
+		if(rand() % 2) {
+			world->changeType(*(beetle->getBeetle()), bool(rand() % 2));
+		}
+		else {
+			world->deterministicMove(*(beetle->getBeetle()), static_cast<Move> (rand()%3));
+		}
+	}
 }
