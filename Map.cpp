@@ -17,6 +17,12 @@ Map::Map(Size size, int myId)
 }
 
 Map::~Map() {
+	CERR("deleting map\n");
+	for(auto entity : allEntities) {
+		CERR(entity.second->getId() << " " << int(entity.second->getType()) << " " << entity.second->getPosition()->row << " " << entity.second->getPosition()->col << "\n");
+		delete ((entity.second)->getCell());
+//		delete entity.second;
+	}
 //	for(int i = 0; i < size.height; i++) {
 //		for(int j = 0; j < size.width; j++) {
 //
@@ -84,7 +90,7 @@ void Map::delEntity(int id) {
 				if (myCells[i]->getEntity() == entity) {
 //					row = myCells[i]->row;
 //					col = myCells[i]->col;
-					delete(myCells[i]);
+//					delete(myCells[i]);
 					myCells.erase(myCells.begin() + i);
 					break;
 				}
@@ -93,7 +99,7 @@ void Map::delEntity(int id) {
 				if (oppCells[i]->getEntity() == entity) {
 //					row = oppCells[i]->row;
 //					col = oppCells[i]->col;
-					delete(oppCells[i]);
+//					delete(oppCells[i]);
 					oppCells.erase(oppCells.begin() + i);
 					break;
 				}
@@ -106,7 +112,7 @@ void Map::delEntity(int id) {
 			if (foodCells[i]->getEntity() == entity) {
 //				row = foodCells[i]->row;
 //				col = foodCells[i]->col;
-				delete(foodCells[i]);
+//				delete(foodCells[i]);
 				foodCells.erase(foodCells.begin() + i);
 				break;
 			}
@@ -116,7 +122,7 @@ void Map::delEntity(int id) {
 	case EntityType::SLIPPERS:
 		for (int i = 0; i < (int) this->slipperCells.size(); i++)
 			if (slipperCells[i]->getEntity() == entity) {
-				delete(slipperCells[i]);
+//				delete(slipperCells[i]);
 				slipperCells.erase(slipperCells.begin() + i);
 				break;
 			}
@@ -126,7 +132,7 @@ void Map::delEntity(int id) {
 			if (trashCells[i]->getEntity() == entity) {
 //				row = trashCells[i]->row;
 //				col = trashCells[i]->col;
-				delete(trashCells[i]);
+//				delete(trashCells[i]);
 				trashCells.erase(trashCells.begin() + i);
 				break;
 			}
@@ -136,13 +142,14 @@ void Map::delEntity(int id) {
 	case EntityType::TELEPORT:
 		for (int i = 0; i < (int) this->teleportCells.size(); i++)
 			if (teleportCells[i]->getEntity() == entity) {
-				delete(teleportCells[i]);
+//				delete(teleportCells[i]);
 				teleportCells.erase(teleportCells.begin() + i);
 				break;
 			}
 		break;
 	}
 //    	table[x][y]->delEntity();
+	delete(entity->getCell());
 	this->allEntities.erase(id);
 //    }
 }
@@ -161,10 +168,14 @@ void Map::moveEntity(int id, int row, int col, bool wing, bool sick) {
 	if(this->allEntities.find(id) == this->allEntities.end()) {
 		throw("entity for moving doesn't exist!!\n");
 	}
-	Beetle* beetle = dynamic_cast<Beetle*> (allEntities[id]);
-	beetle->setPosition(row, col);
-	beetle->setWing(wing);
-	beetle->setSick(sick);
+	Entity* entity = allEntities[id];
+	entity->setPosition(row, col);
+
+	if (entity->getType() == EntityType::BEETLE) {
+		Beetle* beetle = dynamic_cast<Beetle*>(allEntities[id]);
+		beetle->setWing(wing);
+		beetle->setSick(sick);
+	}
 }
 
 int Map::getWidth() {
@@ -197,4 +208,8 @@ std::vector<Cell*> Map::getTrashCells() {
 
 std::vector<Cell*> Map::getFoodCells() {
 	return this->foodCells;
+}
+
+EntityType Map::getEntityType(int id) {
+	return this->getEntity(id)->getType();
 }

@@ -40,6 +40,7 @@ Game::Game() {
 }
 
 Game::~Game() {
+	CERR("deleting game\n");
 	delete map;
 }
 
@@ -262,10 +263,18 @@ void Game::handleTurnMessage(Message &msg) {
 				/* alter */
 				int id = singleChange[I++].asInt();
 
+				if(map->getEntity(id) == nullptr) {
+					throw("entity for moving doesn't exist!!\n");
+				}
+
 				int x = singleChange[I++].asInt();
 				int y = singleChange[I++].asInt();
-				bool wing = singleChange[I++].asBool();
-				bool sick = singleChange[I++].asBool();
+				bool wing = false;
+				bool sick = false;
+				if(map->getEntityType(id) == EntityType::BEETLE) {
+					wing = singleChange[I++].asBool();
+					sick = singleChange[I++].asBool();
+				}
 				CERR("ALT\t" << id << "\t" << x << ", " << y << "\t" << wing << " " << sick << "\n");
 				map->moveEntity(id, x, y, wing, sick);
 			} else {

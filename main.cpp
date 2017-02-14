@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
 	try {
 		Controller *control = new Controller(args);
 		control->start();
-		delete control;
+		delete(control);
 	} catch (std::exception& e) {
 		std::cerr << "MAIN EXCEPTION\n";
 		std::cerr << e.what() << std::endl;
