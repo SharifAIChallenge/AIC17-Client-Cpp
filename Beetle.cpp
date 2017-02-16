@@ -2,14 +2,19 @@
 
 Beetle::Beetle(int id, Cell* cell, Direction dir, bool wing, BeetleType beetle_type, bool sick, int team_id)
     : Entity(id, cell, EntityType::BEETLE), dir(dir), wing(wing), sick(sick), beetle_type(beetle_type), team_id(team_id) {
-};
+	power = 0;
+}
+
+int Beetle::getPower() {
+	return this->power;
+}
 
 BeetleType Beetle::getBeetleType() {
 	return this->beetle_type;
 }
 
 bool Beetle::has_wing() {
-	return wing;
+	return this->wing;
 }
 
 Direction Beetle::getDirection() {
@@ -31,6 +36,7 @@ void Beetle::doMove(Move move, Size size) {
 		this->dir = static_cast<Direction>((static_cast<int>(this->dir) + 1) % 4);
 		break;
 	case Move::FORWARD:
+		this->power++;
 		switch (this->dir) {
 		case Direction::LEFT:
 			if (this->cell->col > 0)

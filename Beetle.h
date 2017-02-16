@@ -19,6 +19,7 @@ class Beetle : public Entity
     BeetleType getBeetleType();
     bool has_wing();
     bool is_sick();
+    int getPower();
     int getTeamId();
     
     void setSick(bool sick);
@@ -32,6 +33,7 @@ class Beetle : public Entity
     bool wing;
     bool sick;
     BeetleType beetle_type;
+    int power;
     int team_id;
 };
 
