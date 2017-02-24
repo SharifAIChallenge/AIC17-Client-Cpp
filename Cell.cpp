@@ -11,53 +11,62 @@
 #include "Teleport.h"
 #include "Beetle.h"
 #include "util.h"
+#include "Food.h"
+#include "Trash.h"
 
 Cell::Cell(int row, int col) : row(row), col(col) {
-	entity = nullptr;
+    entity = nullptr;
 }
 
 Cell::~Cell() {
-	if(entity != nullptr)
-		delete entity;
+    if(entity != nullptr)
+            delete entity;
 }
 
 void Cell::setEntity(Entity* entity) {
-	if(this->entity != nullptr) {
-		CERR("possibility of memory leakage\n");
-	}
-	this->entity = entity;
+    if(this->entity != nullptr) {
+        CERR("possibility of memory leakage\n");
+    }
+    this->entity = entity;
 }
 
 void Cell::delEntity() {
-	if(this->entity == nullptr)
-		return;
-	delete(this->entity);
-	this->entity = nullptr;
+    if(this->entity == nullptr)
+        return;
+    delete(this->entity);
+    this->entity = nullptr;
 }
 
 Entity* Cell::getEntity() {
-	return this->entity;
+    return this->entity;
 }
 
 Beetle* Cell::getBeetle() {
-	if(this->entity == nullptr)
-		return nullptr;
-	return dynamic_cast<Beetle*> (this->entity);
+    if(this->entity == nullptr)
+        return nullptr;
+    return dynamic_cast<Beetle*> (this->entity);
 }
 
 Slippers* Cell::getSlipper() {
-	return dynamic_cast<Slippers*> (this->entity);
+    return dynamic_cast<Slippers*> (this->entity);
+}
+Food* Cell::getFood() {
+    return dynamic_cast<Food*> (this->entity);
+}
+Trash* Cell::getTrash(){
+    return dynamic_cast<Trash*> (this->entity);
+
 }
 
 Entity* Cell::getItem() {
-	return this->entity;
+    return this->entity;
 }
 
 Teleport* Cell::getTeleport() {
-	return dynamic_cast<Teleport*> (this->entity);
+    return dynamic_cast<Teleport*> (this->entity);
 }
 
 void Cell::setPosition(int row, int col) {
-	this->row = row;
-	this->col = col;
+    this->row = row;
+    this->col = col;
 }
