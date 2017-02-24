@@ -92,7 +92,7 @@ bool Network::doReceive()
 	{
 		char buf[MAX_LEN_OF_TCP];
 		bzero(buf,MAX_LEN_OF_TCP);
-		int sizeMessage = read(sockfd,buf,MAX_LEN_OF_TCP);
+		int sizeMessage = recv(sockfd, buf, MAX_LEN_OF_TCP, 0);
 		if (sizeMessage <= 0)
 			return false;
 		SubPacket *cache = new SubPacket(MAX_LEN_OF_TCP);
@@ -148,7 +148,7 @@ void Network::sendMessage(Message &msg)
 	while (n < 0)
 	{
 		std::string message = msg.getJson();
-		n = write(sockfd,message.c_str(),message.size());
+		n = send(sockfd, message.c_str(), message.size(), 0);
 	}
 }
 
