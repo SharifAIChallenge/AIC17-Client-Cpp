@@ -233,10 +233,9 @@ void Game::handleTurnMessage(Message &msg) {
 					Direction dir = static_cast<Direction>(singleChange[I++].asInt());
 					bool wing = singleChange[I++].asBool();
 					BeetleType type = static_cast<BeetleType>(singleChange[I++].asInt());
-					bool sick = singleChange[I++].asBool();
 					int team_id = singleChange[I++].asInt();
 					CERR(team_id);
-					map->addEntity(new Beetle(id, newCell, dir, wing, type, sick, team_id));
+					map->addEntity(new Beetle(id, newCell, dir, wing, type, false, team_id));
 				} else if (type == EntityType::FOOD) {
 					map->addEntity(new Food(id, newCell));
 				} else if (type == EntityType::SLIPPERS) {
