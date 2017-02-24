@@ -12,6 +12,8 @@ class Entity;
 class Beetle;
 class Slippers;
 class Teleport;
+class Food;
+class Trash;
 
 class Cell {
 	Entity* entity;
@@ -25,7 +27,9 @@ public:
 	void delEntity();
 
 	Beetle* getBeetle();
-	Slippers* getSlipper();
+    Slippers* getSlipper();
+    Food* getFood();
+    Trash* getTrash();
 	Entity* getItem();
 	Teleport* getTeleport();
 
