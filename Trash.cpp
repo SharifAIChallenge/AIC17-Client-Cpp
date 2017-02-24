@@ -7,5 +7,5 @@ Trash::Trash(int id, Cell* cell)
 }
 
 int Trash::getRemainingTurns() {
-	return Trash::validTime - this->creationTurn;
+	return Trash::validTime + this->creationTurn - globalTurn;
 }

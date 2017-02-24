@@ -7,5 +7,5 @@ Food::Food(int id, Cell* cell) :
 }
 
 int Food::getRemainingTurns() {
-	return Food::validTime - this->creationTurn;
+	return Food::validTime + this->creationTurn - globalTurn;
 }

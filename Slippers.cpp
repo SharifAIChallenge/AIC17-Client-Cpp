@@ -7,5 +7,5 @@ Slippers::Slippers(int id, Cell* cell)
 }
 
 int Slippers::getRemainingTurns() {
-	return Slippers::validTime - this->creationTurn;
+	return Slippers::validTime + this->creationTurn - globalTurn;
 }

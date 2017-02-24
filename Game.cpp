@@ -144,7 +144,7 @@ void Game::handleInitMessage(Message &msg) {
 	Json::Value &beetleArray = argsArray[I++];
 
 	for (Json::UInt i = 0; i < beetleArray.size(); i++) {
-		CERR("Beetle " << beetleArray[i][0u].asInt() << " at\t" << beetleArray[i][1u].asInt() << ", " << beetleArray[i][2u].asInt() << "\n");
+		CERR("Beetle " << beetleArray[i][0u].asInt() << " at\t" << beetleArray[i][1u].asInt() << ", " << beetleArray[i][2u].asInt() << "\t" << beetleArray[i][7u].asInt() << "\n");
 		map->addEntity(
 				new Beetle(beetleArray[i][0u].asInt(),
 						new Cell(beetleArray[i][1u].asInt(), beetleArray[i][2u].asInt()),
@@ -203,6 +203,7 @@ void Game::handleTurnMessage(Message &msg) {
 	Json::UInt I = 0;
 
 	turn = argsArray[I++].asInt();
+	globalTurn = turn;
 	CERR("Turn: " << turn << "\n");
 
 	Json::Value &scores = argsArray[I++];
