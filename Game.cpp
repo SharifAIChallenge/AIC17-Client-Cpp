@@ -149,8 +149,8 @@ void Game::handleInitMessage(Message &msg) {
 				new Beetle(beetleArray[i][0u].asInt(),
 						new Cell(beetleArray[i][1u].asInt(), beetleArray[i][2u].asInt()),
 						static_cast<Direction>(beetleArray[i][3u].asInt()),
-						beetleArray[i][4u].asBool(),
-						static_cast<BeetleType>(beetleArray[i][5u].asInt()),
+						beetleArray[i][5u].asBool(),
+						static_cast<BeetleType>(beetleArray[i][4u].asInt()),
 						beetleArray[i][6u].asBool(),
 						beetleArray[i][7u].asInt()));
 	}
@@ -197,6 +197,13 @@ void Game::handleInitMessage(Message &msg) {
 
 void Game::handleTurnMessage(Message &msg) {
 	CERR(msg.getJson() << "\n");
+	CERR(this->map->getMyCells().size() << "\n");
+	for(auto cell : this->map->getMyCells())
+		CERR(cell->row << " " << cell->col << "\n");
+
+	CERR(this->map->getOppCells().size() << "\n");
+	for(auto cell : this->map->getOppCells())
+		CERR(cell->getEntity()->getId() << " " << cell->row << " " << cell->col << "\n");
 	turnStartTime = getTimeInMilliSeconds();
 
 	Json::Value &argsArray = msg.getArray("args");
@@ -231,8 +238,8 @@ void Game::handleTurnMessage(Message &msg) {
 				CERR("ADD\t" << id << "\t" << (int)type << " " << row << ", " << col << " ");
 				if (type == EntityType::BEETLE) {
 					Direction dir = static_cast<Direction>(singleChange[I++].asInt());
-					bool wing = singleChange[I++].asBool();
 					BeetleType type = static_cast<BeetleType>(singleChange[I++].asInt());
+					bool wing = singleChange[I++].asBool();
 					int team_id = singleChange[I++].asInt();
 					CERR(team_id);
 					map->addEntity(new Beetle(id, newCell, dir, wing, type, false, team_id));
