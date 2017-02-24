@@ -18,7 +18,7 @@ typedef std::pair<int, Entity*> PIE;
 enum class BeetleType
 {
     LOW = 0,
-    HGIGH
+    HIGH
 };
 
 //enum class BeetleColor
