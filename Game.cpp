@@ -196,6 +196,7 @@ void Game::handleInitMessage(Message &msg) {
 }
 
 void Game::handleTurnMessage(Message &msg) {
+	CERR(msg.getJson() << "\n");
 	turnStartTime = getTimeInMilliSeconds();
 
 	Json::Value &argsArray = msg.getArray("args");
@@ -227,13 +228,14 @@ void Game::handleTurnMessage(Message &msg) {
 				int col = singleChange[I++].asInt();
 				Cell* newCell = new Cell(row, col);
 
-				CERR("ADD\t" << id << "\t" << row << ", " << col << "\n");
+				CERR("ADD\t" << id << "\t" << (int)type << " " << row << ", " << col << " ");
 				if (type == EntityType::BEETLE) {
 					Direction dir = static_cast<Direction>(singleChange[I++].asInt());
 					bool wing = singleChange[I++].asBool();
 					BeetleType type = static_cast<BeetleType>(singleChange[I++].asInt());
 					bool sick = singleChange[I++].asBool();
 					int team_id = singleChange[I++].asInt();
+					CERR(team_id);
 					map->addEntity(new Beetle(id, newCell, dir, wing, type, sick, team_id));
 				} else if (type == EntityType::FOOD) {
 					map->addEntity(new Food(id, newCell));
@@ -244,6 +246,7 @@ void Game::handleTurnMessage(Message &msg) {
 				} else {
 					throw("unknown entity type");
 				}
+				CERR("\n");
 
 			} else if (changeType == "d") {
 				/* delete */
@@ -265,7 +268,9 @@ void Game::handleTurnMessage(Message &msg) {
 				int id = singleChange[I++].asInt();
 
 				if(map->getEntity(id) == nullptr) {
-					throw("entity for moving doesn't exist!!\n");
+					CERR("entity for moving doesn't exist!!\n");
+//					throw("entity for moving doesn't exist!!\n");
+					continue;
 				}
 
 				int x = singleChange[I++].asInt();

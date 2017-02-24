@@ -74,7 +74,8 @@ void Map::addEntity(Entity *entity) {
 
 void Map::delEntity(int id) {
 	if(allEntities.find(id) == allEntities.end()) {
-		throw("entity for deleting doesn't exist!!\n");
+		CERR("entity for deleting doesn't exist!!\n");
+//		throw("entity for deleting doesn't exist!!\n");
 		return;
 	}
 
