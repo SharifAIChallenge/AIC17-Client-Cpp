@@ -165,7 +165,22 @@ void Map::moveEntity(int id, Move move) {
 	beetle->doMove(move, this->size);
 }
 
+void Map::moveEntity(int id, int row, int col, BeetleType type, bool sick) {
+	if(this->allEntities.find(id) == this->allEntities.end()) {
+		throw("entity for moving doesn't exist!!\n");
+	}
+	Entity* entity = allEntities[id];
+	entity->setPosition(row, col);
+
+	if (entity->getType() == EntityType::BEETLE) {
+		Beetle* beetle = dynamic_cast<Beetle*>(allEntities[id]);
+		beetle->setType(type);
+		beetle->setSick(sick);
+	}
+}
+
 void Map::moveEntity(int id, int row, int col, bool wing, bool sick) {
+	std::cerr << "this function was deprecated\n";
 	if(this->allEntities.find(id) == this->allEntities.end()) {
 		throw("entity for moving doesn't exist!!\n");
 	}

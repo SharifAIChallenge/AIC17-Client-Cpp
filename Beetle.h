@@ -24,6 +24,7 @@ class Beetle : public Entity
     
     void setSick(bool sick);
     void setWing(bool wing);
+    void setType(BeetleType type);
 
     void doMove(Move move, Size size);
     void alter(bool sick, bool wing);

@@ -145,6 +145,8 @@ void Game::handleInitMessage(Message &msg) {
 
 	for (Json::UInt i = 0; i < beetleArray.size(); i++) {
 		CERR("Beetle " << beetleArray[i][0u].asInt() << " at\t" << beetleArray[i][1u].asInt() << ", " << beetleArray[i][2u].asInt() << "\t" << beetleArray[i][7u].asInt() << "\n");
+		CERR("wing : " << beetleArray[i][5u].asBool() << "\n");
+		CERR("type : " << beetleArray[i][4u].asInt() << "\n");
 		map->addEntity(
 				new Beetle(beetleArray[i][0u].asInt(),
 						new Cell(beetleArray[i][1u].asInt(), beetleArray[i][2u].asInt()),
@@ -241,7 +243,9 @@ void Game::handleTurnMessage(Message &msg) {
 					BeetleType type = static_cast<BeetleType>(singleChange[I++].asInt());
 					bool wing = singleChange[I++].asBool();
 					int team_id = singleChange[I++].asInt();
-					CERR(team_id);
+					CERR("wing : " << wing << "\t");
+					CERR("type : " << int(type) << "\t");
+					CERR(team_id << "\n");
 					map->addEntity(new Beetle(id, newCell, dir, wing, type, false, team_id));
 				} else if (type == EntityType::FOOD) {
 					map->addEntity(new Food(id, newCell));
@@ -281,14 +285,14 @@ void Game::handleTurnMessage(Message &msg) {
 
 				int x = singleChange[I++].asInt();
 				int y = singleChange[I++].asInt();
-				bool wing = false;
+				BeetleType type;
 				bool sick = false;
 				if(map->getEntityType(id) == EntityType::BEETLE) {
-					wing = singleChange[I++].asBool();
+					type = static_cast<BeetleType>(singleChange[I++].asInt());
 					sick = singleChange[I++].asBool();
 				}
-				CERR("ALT\t" << id << "\t" << x << ", " << y << "\t" << wing << " " << sick << "\n");
-				map->moveEntity(id, x, y, wing, sick);
+				CERR("ALT\t" << id << "\t" << x << ", " << y << "\t" << int(type) << " " << sick << "\n");
+				map->moveEntity(id, x, y, type, sick);
 			} else {
 				/* error */
 				throw("unknown change type");

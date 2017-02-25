@@ -38,6 +38,7 @@ class Map
 
     void moveEntity(int id, Move move);
     void moveEntity(int id, int row, int col, bool wing, bool sick);
+    void moveEntity(int id, int row, int col, BeetleType type, bool sick);
 
     void delEntity(int id);
 private:

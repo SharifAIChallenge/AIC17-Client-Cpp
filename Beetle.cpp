@@ -77,3 +77,15 @@ void Beetle::setSick(bool sick) {
 void Beetle::setWing(bool wing) {
 	this->wing = wing;
 }
+
+void Beetle::setType(BeetleType type) {
+	this->beetle_type = type;
+}
+
+int Beetle::getRow() {
+	return this->cell->row;
+}
+
+int Beetle::getColumn() {
+	return this->cell->col;
+}
