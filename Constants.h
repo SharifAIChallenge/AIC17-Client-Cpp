@@ -44,6 +44,8 @@ public:
 	int foodValidTime;
 	int trashValidTime;
 	int slipperValidTime;
+	int deterministicMoveLimit;
+	int changeTypeLimit;
 
     void setConstants(Json::Value &msg);
 
@@ -166,6 +168,19 @@ public:
 	 * @return Amount of turns a slipper stays on the map
 	 */
 	int getSlipperValidTime() const;
+
+	/**
+	 *
+	 * @return Limit of deteministic moves on the map
+	 */
+	int getDeterministicMoveLimit() const;
+
+	/**
+	 *
+	 * @return Limit of change types on the map
+	 */
+	int getChangeTypeLimit() const;
+
 };
 
 #endif /* CONSTANTS_H */

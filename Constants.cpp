@@ -49,6 +49,12 @@ void Constants::setConstants(Json::Value &msg) {
 	this->disobeyConstant = msg[18u].asInt();
 	this->foodValidTime = msg[19u].asInt();
 	this->trashValidTime = msg[20u].asInt();
+	this->deterministicMoveLimit = msg[21u].asInt();
+	if(this->deterministicMoveLimit == 0)
+		this->deterministicMoveLimit = 50;
+	this->changeTypeLimit = msg[22u].asInt();
+	if(this->changeTypeLimit == 0)
+		this->changeTypeLimit = 50;
 
 	Food::validTime = this->foodValidTime;
 	Slippers::validTime = this->slipperValidTime;
@@ -130,4 +136,12 @@ int Constants::getTrashValidTime() const {
 
 int Constants::getSlipperValidTime() const {
 	return trashValidTime;
+}
+
+int Constants::getDeterministicMoveLimit() const {
+	return deterministicMoveLimit;
+}
+
+int Constants::getChangeTypeLimit() const {
+	return this->changeTypeLimit;
 }
